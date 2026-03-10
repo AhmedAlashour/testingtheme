@@ -1,0 +1,50 @@
+{# ══════════════════════════════════════════════════════════════
+   TESTIMONIALS — Customer reviews
+   Uses store.testimonials if available, otherwise static
+   ══════════════════════════════════════════════════════════════ #}
+
+<section class="coffee-section">
+  <div class="coffee-section-inner">
+
+    <div class="section-header">
+      <div>
+        <span class="section-label">Testimonials</span>
+        <h2 class="section-title">{{ trans('pages.home.what_say') }} <strong>{{ trans('pages.home.our_customers') }}</strong></h2>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      {# Use store testimonials if available #}
+      {% for testimonial in store.testimonials | default([]) | slice(0, 3) %}
+        <div class="testimonial-card">
+          <div class="testimonial-stars">
+            {% for i in 1..testimonial.rating %}
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.76 3.57 3.94.58-2.85 2.78.67 3.93L6 8.9l-3.52 1.96.67-3.93L.3 4.15l3.94-.58z"/></svg>
+            {% endfor %}
+          </div>
+          <p class="testimonial-text">"{{ testimonial.text }}"</p>
+          <div class="testimonial-author">{{ testimonial.author }}</div>
+        </div>
+      {% else %}
+        {# Static fallback testimonials #}
+        {% set static_reviews = [
+          { rating: 5, text: trans('pages.home.review_1'), author: trans('pages.home.reviewer_1') },
+          { rating: 5, text: trans('pages.home.review_2'), author: trans('pages.home.reviewer_2') },
+          { rating: 5, text: trans('pages.home.review_3'), author: trans('pages.home.reviewer_3') }
+        ] %}
+        {% for review in static_reviews %}
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              {% for i in 1..review.rating %}
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.76 3.57 3.94.58-2.85 2.78.67 3.93L6 8.9l-3.52 1.96.67-3.93L.3 4.15l3.94-.58z"/></svg>
+              {% endfor %}
+            </div>
+            <p class="testimonial-text">"{{ review.text }}"</p>
+            <div class="testimonial-author">{{ review.author }}</div>
+          </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

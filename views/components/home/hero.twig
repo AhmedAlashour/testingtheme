@@ -1,0 +1,93 @@
+{# ══════════════════════════════════════════════════════════════
+   HERO — Full-screen video background
+   Uses: theme.settings.hero_video_url, hero_title, hero_subtitle
+   ══════════════════════════════════════════════════════════════ #}
+
+<section class="hero-video-section" id="hero">
+
+  {# ── Video Background ── #}
+  <div class="hero-video-wrapper">
+    <video
+      class="hero-video"
+      id="heroVideo"
+      autoplay loop muted playsinline
+    >
+      {% if theme.settings.hero_video_url %}
+        <source src="{{ theme.settings.hero_video_url }}" type="video/mp4">
+      {% else %}
+        {# Fallback placeholder — replace via Theme Settings in Salla dashboard #}
+        <source src="https://cdn.pixabay.com/video/2020/07/30/45349-445074842_large.mp4" type="video/mp4">
+      {% endif %}
+    </video>
+    <div class="hero-fallback"></div>
+  </div>
+
+  {# ── Overlays ── #}
+  <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
+
+  {# ── Content ── #}
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+
+      <span class="hero-label">
+        <span class="hero-label-line"></span>
+        Specialty Roastery
+      </span>
+
+      <h1 class="hero-title">
+        {{ theme.settings.hero_title | default(trans('pages.home.hero_title')) }}
+        <strong>{{ trans('pages.home.hero_title_bold') }}</strong>
+      </h1>
+
+      <p class="hero-subtitle">
+        {{ theme.settings.hero_subtitle | default(trans('pages.home.hero_subtitle')) }}
+      </p>
+
+      <div class="hero-actions">
+        <a href="{{ link('products') }}" class="btn-hero-primary">
+          {{ trans('pages.home.shop_now') }}
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+            <line x1="0" y1="8" x2="14" y2="8"/><polyline points="8,2 14,8 8,14"/>
+          </svg>
+        </a>
+        <a href="#subscription" class="btn-hero-secondary">
+          {{ trans('pages.home.discover_subscriptions') }}
+        </a>
+      </div>
+
+      {# ── Stats ── #}
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-number">+{{ store.products_count | default('50') }}</span>
+          <span class="hero-stat-label">{{ trans('pages.home.stat_products') }}</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">{{ store.rating | default('4.9') }}</span>
+          <span class="hero-stat-label">{{ trans('pages.home.stat_rating') }}</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">+5K</span>
+          <span class="hero-stat-label">{{ trans('pages.home.stat_customers') }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {# ── Scroll Indicator ── #}
+  <div class="hero-scroll-hint">
+    <div class="hero-scroll-line"></div>
+    <span class="hero-scroll-text">Scroll</span>
+  </div>
+
+  {# ── Mute/Unmute ── #}
+  <button class="hero-mute-btn" id="muteBtn" aria-label="{{ trans('common.mute') }}">
+    <svg id="muteIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+      <line x1="23" y1="9" x2="17" y2="15"/>
+      <line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+  </button>
+
+</section>

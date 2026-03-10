@@ -1,0 +1,58 @@
+{# ── Monthly Subscription CTA ── #}
+<section class="subscription-section" id="subscription">
+  <div class="subscription-inner">
+
+    <div class="subscription-content">
+      <span class="section-label">Monthly Subscription</span>
+      <h2 class="subscription-title">
+        {{ trans('pages.home.subscription_title') }}<br>
+        <strong>{{ trans('pages.home.subscription_title_bold') }}</strong>
+      </h2>
+      <p class="subscription-text">
+        {{ trans('pages.home.subscription_desc') }}
+      </p>
+      <div class="subscription-features">
+        <div class="subscription-feature">
+          <div class="subscription-check">✓</div>
+          {{ trans('pages.home.sub_feature_1') }}
+        </div>
+        <div class="subscription-feature">
+          <div class="subscription-check">✓</div>
+          {{ trans('pages.home.sub_feature_2') }}
+        </div>
+        <div class="subscription-feature">
+          <div class="subscription-check">✓</div>
+          {{ trans('pages.home.sub_feature_3') }}
+        </div>
+        <div class="subscription-feature">
+          <div class="subscription-check">✓</div>
+          {{ trans('pages.home.sub_feature_4') }}
+        </div>
+      </div>
+      <a href="{{ link('products') }}" class="btn-primary-dark">
+        {{ trans('pages.home.subscribe_now') }}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+          <line x1="0" y1="8" x2="14" y2="8"/><polyline points="8,2 14,8 8,14"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="subscription-visual">
+      <div class="subscription-box">
+        <div class="subscription-box-label">Monthly Plan</div>
+        <div class="subscription-box-price">
+          {{ theme.settings.subscription_price | default('129') }}
+          <span style="font-size:1rem;font-weight:400;">{{ store.currency | default('ر.س') }}</span>
+        </div>
+        <div class="subscription-box-per">{{ trans('pages.home.monthly') }}</div>
+        <div class="subscription-box-items">
+          250g {{ trans('pages.home.specialty_coffee') }}<br>
+          {{ trans('pages.home.tasting_card') }}<br>
+          {{ trans('pages.home.brew_recipe') }}<br>
+          {{ trans('pages.home.free_shipping') }}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

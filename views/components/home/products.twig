@@ -1,0 +1,91 @@
+{# ══════════════════════════════════════════════════════════════
+   PRODUCTS — Dynamic grid from your Salla store products
+   Uses salla.cart.addItem() for quick add-to-cart
+   ══════════════════════════════════════════════════════════════ #}
+
+<section class="coffee-section" id="products">
+  <div class="coffee-section-inner">
+
+    <div class="section-header">
+      <div>
+        <span class="section-label">Specialty Coffee</span>
+        <h2 class="section-title">{{ trans('pages.home.coffee') }} <strong>{{ trans('pages.home.specialty') }}</strong></h2>
+      </div>
+      <a href="{{ link('products') }}" class="view-all-link">
+        {{ trans('pages.home.view_all') }}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+          <line x1="0" y1="8" x2="14" y2="8"/><polyline points="8,2 14,8 8,14"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="products-grid">
+      {% for product in products %}
+        <article class="product-card">
+          {# ── Product Image ── #}
+          <a href="{{ product.url }}" class="product-image">
+            {% if product.promotion.title %}
+              <div class="product-tag">{{ product.promotion.title }}</div>
+            {% endif %}
+
+            {% if product.image.url %}
+              <img src="{{ product.image.url }}"
+                   alt="{{ product.name }}"
+                   loading="lazy"
+                   width="400" height="533">
+            {% else %}
+              <div class="product-placeholder-visual">
+                <span class="product-visual-name">{{ product.name }}</span>
+              </div>
+            {% endif %}
+
+            {# Quick Add — uses Salla JS SDK #}
+            {% if product.is_available %}
+              <button class="product-quick-add"
+                      onclick="event.preventDefault(); salla.cart.addItem({ id: {{ product.id }}, quantity: 1 }).then(() => salla.event.emit('cart::open'))">
+                {{ trans('pages.home.add_to_cart') }}
+              </button>
+            {% else %}
+              <div class="product-quick-add" style="background:var(--grey-500);cursor:default;">
+                {{ trans('pages.home.out_of_stock') }}
+              </div>
+            {% endif %}
+          </a>
+
+          {# ── Product Info ── #}
+          <div class="product-info">
+            <a href="{{ product.url }}">
+              <h3 class="product-name">{{ product.name }}</h3>
+            </a>
+            {% if product.subtitle %}
+              <span class="product-name-en">{{ product.subtitle }}</span>
+            {% endif %}
+            <div class="product-meta">
+              <div class="product-price-group">
+                <span class="product-price">
+                  {{ product.price }}
+                  <span class="product-price-currency">{{ product.currency }}</span>
+                </span>
+                {% if product.sale_price %}
+                  <span class="product-old-price">{{ product.regular_price }}</span>
+                {% endif %}
+              </div>
+              {% if product.rating and product.rating.count > 0 %}
+                <div class="product-rating">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.76 3.57 3.94.58-2.85 2.78.67 3.93L6 8.9l-3.52 1.96.67-3.93L.3 4.15l3.94-.58z"/></svg>
+                  {{ product.rating.stars }}
+                  <span style="color:var(--grey-400);">({{ product.rating.count }})</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% else %}
+        <p style="grid-column:1/-1;text-align:center;color:var(--grey-400);padding:3rem;">
+          {{ trans('pages.home.no_products') }}
+        </p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

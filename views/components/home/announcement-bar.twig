@@ -1,0 +1,21 @@
+{# ── Announcement Marquee Bar ── #}
+<div class="announcement-bar" role="marquee" aria-label="عروض وتنبيهات">
+  <div class="announcement-track">
+    {% set items = [
+      'SPECIALTY COFFEE',
+      trans('pages.home.free_shipping'),
+      'FRESHLY ROASTED',
+      trans('pages.home.fresh_roasting'),
+      'SINGLE ORIGIN',
+      trans('pages.home.specialty_roastery'),
+      'FREE SHIPPING 200+ SAR',
+      'ARABICA 100%'
+    ] %}
+    {# Duplicate for infinite scroll effect #}
+    {% for i in 0..1 %}
+      {% for item in items %}
+        <span>{{ item }}<span class="announcement-dot"></span></span>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>

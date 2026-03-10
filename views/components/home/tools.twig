@@ -1,0 +1,68 @@
+{# ══════════════════════════════════════════════════════════════
+   TOOLS — Brewing tools section
+   Pulls products from a category named "أدوات" or "tools"
+   If no category match, shows all products as fallback
+   ══════════════════════════════════════════════════════════════ #}
+
+<section class="coffee-section" id="tools">
+  <div class="coffee-section-inner">
+
+    <div class="section-header">
+      <div>
+        <span class="section-label">Brewing Tools</span>
+        <h2 class="section-title">{{ trans('pages.home.tools') }} <strong>{{ trans('pages.home.brewing') }}</strong></h2>
+      </div>
+      <a href="{{ link('products') }}" class="view-all-link">
+        {{ trans('pages.home.view_all') }}
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+          <line x1="0" y1="8" x2="14" y2="8"/><polyline points="8,2 14,8 8,14"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="tools-grid">
+      {#
+        To show products from a specific category, use:
+        {% for product in category('tools').products %}
+
+        For now, this uses the second set of store products.
+        Customize the category slug to match your store.
+      #}
+      {% for product in products | slice(4, 3) %}
+        <article class="tool-card">
+          <div class="tool-icon">
+            {% if product.image.url %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" width="40" height="40" style="object-fit:cover;border-radius:4px;">
+            {% else %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M3 10h14v7a4 4 0 01-4 4H7a4 4 0 01-4-4v-7z"/><path d="M17 12h1a3 3 0 010 6h-1"/>
+                <line x1="7" y1="2" x2="7" y2="5"/><line x1="10" y1="2" x2="10" y2="5"/><line x1="13" y1="2" x2="13" y2="5"/>
+              </svg>
+            {% endif %}
+          </div>
+          <h3 class="tool-name">{{ product.name }}</h3>
+          {% if product.subtitle %}
+            <span class="tool-name-en">{{ product.subtitle }}</span>
+          {% endif %}
+          <p class="tool-desc">{{ product.description | striptags | truncate(60) }}</p>
+          <div class="tool-bottom">
+            <span class="tool-price">
+              {{ product.price }}
+              <span class="tool-price-currency">{{ product.currency }}</span>
+            </span>
+            {% if product.sale_price %}
+              <span class="product-old-price">{{ product.regular_price }}</span>
+            {% endif %}
+            {% if product.rating and product.rating.count > 0 %}
+              <div class="product-rating">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.76 3.57 3.94.58-2.85 2.78.67 3.93L6 8.9l-3.52 1.96.67-3.93L.3 4.15l3.94-.58z"/></svg>
+                {{ product.rating.stars }}
+              </div>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

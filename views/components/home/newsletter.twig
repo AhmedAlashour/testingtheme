@@ -1,0 +1,24 @@
+{# ── Newsletter Signup with Salla SDK ── #}
+<section class="coffee-section newsletter-section" id="contact">
+  <div class="newsletter-inner">
+    <span class="section-label" style="text-align:center;display:block;">Newsletter</span>
+    <h2 class="newsletter-title">{{ trans('pages.home.join') }} <strong>{{ trans('pages.home.our_community') }}</strong></h2>
+    <p class="newsletter-text">{{ trans('pages.home.newsletter_desc') }}</p>
+    <div class="newsletter-form" id="newsletterForm">
+      <input
+        class="newsletter-input"
+        type="email"
+        placeholder="{{ trans('pages.home.email_placeholder') }}"
+        aria-label="{{ trans('pages.home.email_placeholder') }}"
+        id="newsletterEmail"
+        required
+      >
+      <button class="newsletter-btn" id="newsletterBtn" type="button">
+        {{ trans('pages.home.subscribe') }}
+      </button>
+    </div>
+    <p class="newsletter-success" id="newsletterSuccess" style="display:none;color:var(--grey-500);font-size:0.82rem;margin-top:1rem;">
+      {{ trans('pages.home.newsletter_success') }}
+    </p>
+  </div>
+</section>
